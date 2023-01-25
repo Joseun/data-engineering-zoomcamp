@@ -4,6 +4,8 @@ locals {
 
 variable "project" {
   description = "Your GCP Project ID"
+  default = "divine-catalyst-375310"
+  type = string
 }
 
 variable "region" {
