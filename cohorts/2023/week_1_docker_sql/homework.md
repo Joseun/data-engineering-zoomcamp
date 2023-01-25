@@ -19,17 +19,19 @@ Which tag has the following text? - *Write the image ID to the file*
 - `--idimage string`
 - `--idfile string`
 
-
 ## Question 2. Understanding docker first run 
 
 Run docker with the python:3.9 image in an interactive mode and the entrypoint of bash.
 Now check the python modules that are installed ( use pip list). 
 How many python packages/modules are installed?
+docker run -it --entrypoint=bash python:3.9
+
 
 - 1
 - 6
 - 3
 - 7
+
 
 # Prepare Postgres
 
@@ -102,3 +104,111 @@ Deadline: 26 January (Thursday), 22:00 CET
 ## Solution
 
 We will publish the solution here
+
+## Answer 1.
+docker image build --help
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --cgroup-parent string    Optional parent cgroup for the container
+      --compress                Compress the build context using gzip
+      --cpu-period int          Limit the CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int           Limit the CPU CFS (Completely Fair Scheduler) quota
+  -c, --cpu-shares int          CPU shares (relative weight)
+      --cpuset-cpus string      CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string      MEMs in which to allow execution (0-3, 0,1)
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is 'PATH/Dockerfile')
+      --force-rm                Always remove intermediate containers
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+  -m, --memory bytes            Memory limit
+      --memory-swap bytes       Swap limit equal to memory plus swap: '-1' to enable
+                                unlimited swap
+      --network string          Set the networking mode for the RUN instructions
+                                during build (default "default")
+      --no-cache                Do not use cache when building the image
+      --pull                    Always attempt to pull a newer version of the image
+  -q, --quiet                   Suppress the build output and print image ID on success
+      --rm                      Remove intermediate containers after a successful
+                                build (default true)
+      --security-opt strings    Security options
+      --shm-size bytes          Size of /dev/shm
+  -t, --tag list                Name and optionally a tag in the 'name:tag' format
+      --target string           Set the target build stage to build.
+      --ulimit ulimit           Ulimit options (default [])
+
+## Answer 2
+docker run -it --entrypoint=bash python:3.9
+pip list
+
+## Answer 3
+SELECT
+	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
+	COUNT(1)
+FROM
+	green_taxi_data g
+WHERE
+	CAST(lpep_pickup_datetime AS DATE) = '2019-01-15'
+GROUP BY
+	day_pick
+ORDER BY
+	day_pick ASC;
+
+## Answer 4
+SELECT
+	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
+	MAX(trip_distance)
+FROM
+	green_taxi_data g
+GROUP BY
+	day_pick
+ORDER BY
+	max DESC;
+
+## Answer 5
+SELECT
+	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
+	COUNT(trip_distance)
+FROM
+	green_taxi_data g
+WHERE
+	CAST(lpep_pickup_datetime AS DATE) = '2019-01-01'
+    AND
+	passenger_count = 2
+GROUP BY
+	day_pick
+
+SELECT
+	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
+	COUNT(trip_distance)
+FROM
+	green_taxi_data g
+WHERE
+	CAST(lpep_pickup_datetime AS DATE) = '2019-01-01'
+    AND
+	passenger_count = 3
+GROUP BY
+	day_pick
+
+## Answer 6
+SELECT
+	tip_amount,
+	zpu."Zone" AS pick_up,
+	zdo."Zone" AS drop_off
+FROM
+	green_taxi_data g
+	JOIN 
+		zones zpu
+			ON g."PULocationID" = zpu."LocationID"
+	JOIN zones zdo
+			ON g."DOLocationID" = zdo."LocationID"
+WHERE
+	zpu."Zone" LIKE 'Astoria'
+ORDER BY
+    tip_amount DESC
