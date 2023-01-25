@@ -106,7 +106,7 @@ Deadline: 26 January (Thursday), 22:00 CET
 We will publish the solution here
 
 ## Answer 1.
-docker image build --help
+<pre>docker image build --help
 
 Build an image from a Dockerfile
 
@@ -141,14 +141,14 @@ Options:
       --shm-size bytes          Size of /dev/shm
   -t, --tag list                Name and optionally a tag in the 'name:tag' format
       --target string           Set the target build stage to build.
-      --ulimit ulimit           Ulimit options (default [])
+      --ulimit ulimit           Ulimit options (default [])</pre>
 
 ## Answer 2
-docker run -it --entrypoint=bash python:3.9
-pip list
+<pre>docker run -it --entrypoint=bash python:3.9
+pip list</pre>
 
 ## Answer 3
-SELECT
+<pre>SELECT
 	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
 	COUNT(1)
 FROM
@@ -158,10 +158,10 @@ WHERE
 GROUP BY
 	day_pick
 ORDER BY
-	day_pick ASC;
+	day_pick ASC;</pre>
 
 ## Answer 4
-SELECT
+<pre>SELECT
 	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
 	MAX(trip_distance)
 FROM
@@ -169,10 +169,10 @@ FROM
 GROUP BY
 	day_pick
 ORDER BY
-	max DESC;
+	max DESC;</pre>
 
 ## Answer 5
-SELECT
+<pre>SELECT
 	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
 	COUNT(trip_distance)
 FROM
@@ -182,9 +182,9 @@ WHERE
     AND
 	passenger_count = 2
 GROUP BY
-	day_pick
+	day_pick</pre>
 
-SELECT
+<pre>SELECT
 	CAST(lpep_pickup_datetime AS DATE) AS day_pick,
 	COUNT(trip_distance)
 FROM
@@ -194,10 +194,10 @@ WHERE
     AND
 	passenger_count = 3
 GROUP BY
-	day_pick
+	day_pick</pre>
 
 ## Answer 6
-SELECT
+<pre>SELECT
 	tip_amount,
 	zpu."Zone" AS pick_up,
 	zdo."Zone" AS drop_off
@@ -211,4 +211,4 @@ FROM
 WHERE
 	zpu."Zone" LIKE 'Astoria'
 ORDER BY
-    tip_amount DESC
+    tip_amount DESC</pre>

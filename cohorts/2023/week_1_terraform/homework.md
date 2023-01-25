@@ -26,7 +26,7 @@ Paste the output of this command into the homework submission form.
 
 Deadline: 26 January (Thursday), 22:00 CET
 
-gcloud auth application-default login
+<pre>gcloud auth application-default login
 terraform init
 terraform plan
-terraform apply
+terraform apply</pre>
