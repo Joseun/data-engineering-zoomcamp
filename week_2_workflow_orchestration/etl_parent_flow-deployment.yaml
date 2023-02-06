@@ -1,0 +1,67 @@
+###
+### A complete description of a Prefect Deployment for flow 'etl-parent-flow'
+###
+name: Parameterized GitHub \ GCS Flow
+description: null
+version: 3b1dc2da00a3399d0fa7b60b6be62c8f
+# The work queue that will handle this deployment's runs
+work_queue_name: default
+work_pool_name: null
+tags:
+- zoom
+parameters: {}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-parent-flow
+manifest_path: null
+storage:
+  repository: https://github.com/Joseun/data-engineering-zoomcamp.git
+  reference: main
+  access_token: null
+  include_git_objects: true
+  _block_document_id: 7798b8a9-d265-4470-bd78-01d129db78e6
+  _block_document_name: zoom
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: ''
+entrypoint: parameterized_flow.py:etl_parent_flow
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    color:
+      title: color
+      default: green
+      position: 0
+      type: string
+    year:
+      title: year
+      default: 2020
+      position: 1
+      type: integer
+    months:
+      title: months
+      default: 1
+      position: 2
+      type: array
+      items:
+        type: integer
+  required: null
+  definitions: null
+timestamp: '2023-02-06T13:04:50.312532+00:00'

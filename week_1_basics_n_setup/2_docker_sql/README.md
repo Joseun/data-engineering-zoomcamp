@@ -165,7 +165,9 @@ docker run -it \
 Running locally
 
 ```bash
-URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+# URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2021-01.csv.gz"
+
+URL="https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-01.csv.gz"
 
 python ingest_data.py \
   --user=root \
@@ -173,9 +175,27 @@ python ingest_data.py \
   --host=localhost \
   --port=5432 \
   --db=ny_taxi \
-  --table_name=yellow_taxi_trips \
+  --table_name=green_taxi_trips \
   --url=${URL}
 ```
+
+python ingest_data.py \
+  --table_name=green_taxi_trips \
+  --url=${URL}
+
+
+python etl_gcs_to_bq.py \
+  --color=green \
+  --year=2020 \
+  --month=1
+
+python etl_web_to_gcs.py \
+  --color=yellow \
+  --year=2019 \
+  --month=2
+
+
+prefect deployment build ./parameterized_flow.py:etl_parent_flow --name "Parameterized GitHub \ GCS Flow" --tag zoom -sb github/zoom -a
 
 Build the image
 
