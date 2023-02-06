@@ -6,12 +6,18 @@ description: null
 version: 3b1dc2da00a3399d0fa7b60b6be62c8f
 # The work queue that will handle this deployment's runs
 work_queue_name: default
-work_pool_name: null
+work_pool_name: default-agent-pool
 tags: []
 parameters: {}
 schedule: null
-is_schedule_active: null
+is_schedule_active: true
 infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-parent-flow
+manifest_path: null
 infrastructure:
   type: process
   env: {}
@@ -20,14 +26,11 @@ infrastructure:
   command: null
   stream_output: true
   working_dir: null
+  _block_document_id: f53a035c-d9ef-404d-9cb3-53898cffe846
+  _block_document_name: anonymous-a935f6f9-5c80-4e29-82f1-10b8a23f99c6
+  _is_anonymous: true
   block_type_slug: process
   _block_type_slug: process
-
-###
-### DO NOT EDIT BELOW THIS LINE
-###
-flow_name: etl-parent-flow
-manifest_path: null
 storage:
   repository: https://github.com/Joseun/data-engineering-zoomcamp.git
   reference: main
@@ -38,8 +41,8 @@ storage:
   _is_anonymous: false
   block_type_slug: github
   _block_type_slug: github
-path: /home/joseun/data-engineering-zoomcamp/week_2_workflow_orchestration
-entrypoint: parameterized_flow.py:etl_parent_flow
+path: ''
+entrypoint: week_2_workflow_orchestration/parameterized_flow.py:etl_parent_flow
 parameter_openapi_schema:
   title: Parameters
   type: object
@@ -63,4 +66,4 @@ parameter_openapi_schema:
         type: integer
   required: null
   definitions: null
-timestamp: '2023-02-06T13:50:45.268744+00:00'
+timestamp: '2023-02-06T14:29:54.110671+00:00'
