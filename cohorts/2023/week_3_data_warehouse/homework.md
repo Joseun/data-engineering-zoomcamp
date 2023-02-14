@@ -80,15 +80,19 @@ Deadline: 13 February (Monday), 22:00 CET
 
 ## Solution
 
-<pre>CREATE OR REPLACE EXTERNAL TABLE `divine-catalyst-375310.trips_data_all.fhv_tripdata`
+<pre>
+CREATE OR REPLACE EXTERNAL TABLE `divine-catalyst-375310.trips_data_all.fhv_tripdata`
 OPTIONS (
   format = 'PARQUET',
   uris = ['gs://dtc_data_lake_divine-catalyst-375310/data/fhv/fhv_tripdata_2019-*.parquet']
 );</pre>
 
-<pre>SELECT COUNT(*) FROM `divine-catalyst-375310.trips_data_all.fhv_tripdata`;></pre>
+<pre>
+SELECT COUNT(*) 
+FROM `divine-catalyst-375310.trips_data_all.fhv_tripdata`;</pre>
 
-<pre>CREATE OR REPLACE TABLE `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`
+<pre>
+CREATE OR REPLACE TABLE `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`
 AS SELECT dispatching_base_num, 
           CAST(pickup_datetime as DATETIME) pickup_datetime , 
           CAST(dropOff_datetime as DATETIME) dropOff_datetime, 
@@ -97,17 +101,25 @@ AS SELECT dispatching_base_num,
           SR_Flag, Affiliated_base_number
   FROM `divine-catalyst-375310.trips_data_all.fhv_tripdata`;</pre>
 
-<pre>SELECT COUNT(DISTINCT(Affiliated_base_number)) FROM `divine-catalyst-375310.trips_data_all.fhv_tripdata`;</pre>
+<pre>
+SELECT COUNT(DISTINCT(Affiliated_base_number))
+FROM `divine-catalyst-375310.trips_data_all.fhv_tripdata`;</pre>
 
-<pre>SELECT COUNT(DISTINCT(Affiliated_base_number)) FROM `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`;</pre>
+<pre>
+SELECT COUNT(DISTINCT(Affiliated_base_number))
+FROM `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`;</pre>
 
-<pre>SELECT COUNT(DISTINCT(pickup_datetime)) FROM `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`;</pre>
+<pre>
+SELECT COUNT(DISTINCT(pickup_datetime))
+FROM `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`;</pre>
 
-<pre>SELECT COUNT(*) 
+<pre>
+SELECT COUNT(*) 
 FROM `divine-catalyst-375310.trips_data_all.fhv_tripdata`
 WHERE PUlocationID  IS NULL AND DOlocationID IS NULL;</pre>
 
-<pre>CREATE OR REPLACE TABLE `divine-catalyst-375310.trips_data_all.fhv_partitioned_clustered_tripdata`
+<pre>
+CREATE OR REPLACE TABLE `divine-catalyst-375310.trips_data_all.fhv_partitioned_clustered_tripdata`
 PARTITION BY DATE(pickup_datetime)
 CLUSTER BY Affiliated_base_number AS (
   SELECT *
@@ -118,7 +130,8 @@ CLUSTER BY Affiliated_base_number AS (
 FROM `divine-catalyst-375310.trips_data_all.fhv_nonpartitioned_tripdata`
 WHERE pickup_datetime BETWEEN '2019-03-01' AND '2019-03-31';</pre>
 
-<pre>SELECT DISTINCT(Affiliated_base_number)
+<pre>
+SELECT DISTINCT(Affiliated_base_number)
 FROM `divine-catalyst-375310.trips_data_all.fhv_partitioned_clustered_tripdata`
 WHERE pickup_datetime BETWEEN '2019-03-01' AND '2019-03-31';
 </pre>
