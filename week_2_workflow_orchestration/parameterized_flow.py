@@ -8,14 +8,19 @@ from pathlib import Path
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 from prefect_gcp.cloud_storage import GcsBucket
+from typing import Union
 
 
-@task(log_prints=True, retries=3) # cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
+@task(log_prints=True)#retries=3) # cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
 def fetch(data_url: str) -> pd.DataFrame:
     """ Read taxi data from web into pandas DataFrame """
-
-    df = pd.read_csv(data_url)
-    return df
+    try:
+        df = pd.read_csv(data_url)
+        return df
+    except:
+        df = None
+        return df
+    
 
 @task(log_prints=True)
 def clean(df: pd.DataFrame, color: str) -> pd.DataFrame:
@@ -26,6 +31,8 @@ def clean(df: pd.DataFrame, color: str) -> pd.DataFrame:
     elif color == "green":
         df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
         df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
+    df.PUlocationID = df.PUlocationID.astype(float)
+    df.DOlocationID = df.DOlocationID.astype(float)
     print(df.head(2))
     print(f"columns: {df.dtypes}")
     print(f"rows: {len(df)}")
@@ -51,7 +58,7 @@ def write_gcs(path: Path) -> None:
     )
     return
 
-@flow(name="SubFlow")
+@flow(name="SubFlow", log_prints=True)
 def etl_web_to_gcs(color: str, year: int, month: int) -> None:
     """ The main ETL function """
     # color = params.color
@@ -62,23 +69,32 @@ def etl_web_to_gcs(color: str, year: int, month: int) -> None:
     data_url = f"https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{color}/{file_name}.csv.gz"
 
     raw_data = fetch(data_url)
-    cleaned_data = clean(raw_data, color)
-    path = write_local(cleaned_data, color, file_name)
-    write_gcs(path)
+    # print(type(raw_data))
+    if raw_data is None:
+        print(f"{file_name} does not exist")
+    else:
+        cleaned_data = clean(raw_data, color)
+        path = write_local(cleaned_data, color, file_name)
+        write_gcs(path)
 
-@flow()
-def etl_parent_flow(color: str = "green", year: int = 2020, months: list[int] = 1):
+@flow(log_prints=True)
+def etl_parent_flow(color: str = "green", year: int = 2020, months: list[Union[int, str]] = 1):
     # parser = argparse.ArgumentParser(description='Ingest CSV data to GCS')
     # parser.add_argument('--color', required=True, help='name of the color of the taxi')
     # parser.add_argument('--year', required=True, help='year of the data required')
     # parser.add_argument('--month', required=True, help='month of the data required')
 
     # args = parser.parse_args()
-    for month in months:
-        etl_web_to_gcs(color, year, month)
+    print(months)
+    if months == ["*"]:
+        for month in range(1, 13):
+            etl_web_to_gcs(color, year, month)
+    else:
+        for month in months:
+            etl_web_to_gcs(color, year, month)
 
 if __name__ == '__main__':
-    color = "green"
-    year = 2020
-    months = [1]
+    color = "fhv"
+    year = 2019
+    months = ["*"]
     etl_parent_flow(color, year, months)
