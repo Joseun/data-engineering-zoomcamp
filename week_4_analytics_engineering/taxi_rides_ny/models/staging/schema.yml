@@ -13,8 +13,8 @@ sources:
 
       # loaded_at_field: record_loaded_at
       tables:
-        - name: green_tripdata
-        - name: yellow_tripdata
+        - name: green_taxi_trips
+        - name: yellow_taxi_trips
         - name: fhv_tripdata
          # freshness:
            # error_after: {count: 6, period: hour}
@@ -238,11 +238,10 @@ models:
                   Null=Non-shared trips
             tests:
                 - accepted_values:
-                  values: [1, 'null']
-                  severity: warn
-                  quote: false
-  
-                - null:
+                    values: [1, 'null']
+                    severity: warn
+                    quote: false
+                - not_null:
                     severity: warn
           - name: affliated_base_num 
             description: > 
