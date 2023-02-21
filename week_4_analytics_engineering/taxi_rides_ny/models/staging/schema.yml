@@ -4,17 +4,18 @@ version: 2
 sources:
     - name: staging
       #For bigquery:
-      #database: taxi-rides-ny-339813
+      database: divine-catalyst-375310
 
       # For postgres:
-      database: production
+      # database: production
 
       schema: trips_data_all
 
       # loaded_at_field: record_loaded_at
       tables:
-        - name: green_tripdata
-        - name: yellow_tripdata
+        - name: green_taxi_trips
+        - name: yellow_taxi_trips
+        - name: fhv_tripdata
          # freshness:
            # error_after: {count: 6, period: hour}
 
@@ -201,3 +202,48 @@ models:
             description: Total amount of all tolls paid in trip.
           - name: Total_amount 
             description: The total amount charged to passengers. Does not include cash tips.
+
+    - name: stg_fhv_tripdata
+      description: > 
+        Trips made by New York City's iconic for-hire vehicles. 
+        For-Hire Vehicles provide pre-arranged service anywhere in New York City and are dispatched by TLC-licensed FHV bases.
+        For-Hire Vehicles must be affiliated with a single FHV base, but may accept dispatches from any base.
+        Currently, the TLC will only accept a new FHV application if the vehicle is wheelchair accessible, or if the driver has a lease-to-own contract. 
+      columns:
+          - name: dispatching_base_num 
+            description: > 
+                A code indicating the TLC Base License Number of the base that dispatched the trip
+          - name: pickup_datetime 
+            description: The date and time when the meter was engaged.
+          - name: dropoff_datetime 
+            description: The date and time when the meter was disengaged.
+          - name: Pickup_locationid
+            description: locationid where the meter was engaged.
+            tests:
+              - relationships:
+                  to: ref('taxi_zone_lookup')
+                  field: locationid
+                  severity: warn
+          - name: dropoff_locationid 
+            description: locationid where the meter was engaged.
+            tests:
+              - relationships:
+                  to: ref('taxi_zone_lookup')
+                  field: locationid
+                  severity: warn
+          - name: SR_Flag 
+            description: >
+                Indicates if the trip was a part of a shared ride chain offered by a High Volume FHV company (e.g. Uber Pool, Lyft Line)..
+                  1=Shared trips
+                  Null=Non-shared trips
+            tests:
+                - accepted_values:
+                    values: [1, 'null']
+                    severity: warn
+                    quote: false
+                - not_null:
+                    severity: warn
+          - name: affliated_base_num 
+            description: > 
+                A code indicating the TLC Base License Number of the base that affliated with a dispatched trip.
+  

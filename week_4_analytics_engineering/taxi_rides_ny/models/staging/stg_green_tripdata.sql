@@ -3,8 +3,8 @@
 with tripdata as 
 (
   select *,
-    row_number() over(partition by vendorid, lpep_pickup_datetime) as rn
-  from {{ source('staging','green_tripdata') }}
+    row_number() over(partition by CAST(vendorid AS integer), lpep_pickup_datetime) as rn
+  from {{ source('staging','green_taxi_trips') }}
   where vendorid is not null 
 )
 select
