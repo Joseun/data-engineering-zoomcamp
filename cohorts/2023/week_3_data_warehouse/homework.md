@@ -138,3 +138,4 @@ WHERE pickup_datetime BETWEEN '2019-03-01' AND '2019-03-31';
 
 ### Question 8
 cohorts/2023/week_3_data_warehouse/parameterized_flow.py
+Solution: https://www.youtube.com/watch?v=j8r2OigKBWE
