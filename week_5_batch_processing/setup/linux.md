@@ -15,7 +15,9 @@ We'll use [OpenJDK](https://jdk.java.net/archive/)
 Download it (e.g. to `~/spark`):
 
 ```
-wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz
+wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz 
+
+wget https://download.java.net/java/GA/jdk19.0.1/afdd2e245b014143b62ccb916125e3ce/10/GPL/openjdk-19.0.1_linux-x64_bin.tar.gz
 ```
 
 Unpack it:
