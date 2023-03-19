@@ -1,0 +1,25 @@
+{
+  "namespace": "com.datatalksclub.taxi",
+  "type": "record",
+  "name": "RideRecord",
+  "fields": [
+    {
+      "name": "source",
+      "type": "string"
+    },
+    {
+      "name": "pickup_location",
+      "type": [
+        "null", 
+        "int"
+      ]
+    },
+    {
+      "name": "dropoff_location",
+      "type": [
+        "null",
+        "int"
+      ]
+    }
+  ]
+}
