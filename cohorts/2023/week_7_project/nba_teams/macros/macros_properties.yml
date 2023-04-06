@@ -1,0 +1,12 @@
+version: 2
+
+macros:
+  - name: get_bmi
+    description: >
+      This macro receives a BMI and returns the corresponding class.
+    arguments:
+      - name: BMI
+        type: float
+        description: > 
+          BMI value.
+          Must be a float, otherwise the macro will return null

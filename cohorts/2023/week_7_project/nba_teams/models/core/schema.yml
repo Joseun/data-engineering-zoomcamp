@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+    - name: core
+      #For bigquery:
+      database: divine-catalyst-375310
+
+      # For postgres:
+      # database: production
+
+      schema: nbaplayers
+
+      # loaded_at_field: record_loaded_at
+      tables:
+        - name: teams
+         # freshness:
+           # error_after: {count: 6, period: hour}
+
+models:
+  - name: fact_players
+    description: >
+      NBA players personal details just as place of birth, height, weight, 
+      and many other details

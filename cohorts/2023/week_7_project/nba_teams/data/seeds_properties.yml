@@ -1,0 +1,7 @@
+version: 2
+
+seeds: 
+  - name: teams_lookup
+    description: >
+      Teams look up contains details of teams playing in the NBA for season 2022.
+            
