@@ -1,5 +1,6 @@
 {{ config(materialized='view') }}
 
+
 select
   CAST(name as string) as name,
   CAST(REPLACE(pob, "\"", "") as string) as place_of_birth,
@@ -12,13 +13,13 @@ select
   
   CAST(REPLACE(height, "\"", "") AS FLOAT64) as height,
   CAST(REPLACE(weight, "\"", "") AS FLOAT64) as weight,
-  CAST(college as string) as college,
-  CAST(affiliation as string) as affiliation,
+  CAST(REPLACE(college, "\"", "") as string) as college,
+  CAST(REPLACE(affiliation, "\"", "") as string) as affiliation,
   CAST(jersey as integer) as jersey_number,
   CAST(REPLACE(position, "\"", "") as string) as position,
 
-from 76ers
-where jersey_number is not null
+from {{ source('staging', '76ers') }}
+where jersey is not null and LENGTH(debut_year) = 4
 
 -- dbt build --m <model.sql> --var 'is_test_run: false'
 {% if var('is_test_run', default=true) %}
