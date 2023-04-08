@@ -17,6 +17,32 @@ sources:
         - name: Bucks
         - name: Bulls
         - name: Cavaliers
+        - name: Celtics
+        - name: Clippers
+        - name: Grizzlies
+        - name: Hawks
+        - name: Heat
+        - name: Hornets
+        - name: Jazz
+        - name: Kings
+        - name: Knicks
+        - name: Lakers
+        - name: Magic
+        - name: Mavericks
+        - name: Nets
+        - name: Nuggets
+        - name: Pacers
+        - name: Pelicans
+        - name: Pistons
+        - name: Raptors
+        - name: Rockets
+        - name: Spurs
+        - name: Suns
+        - name: Thunder
+        - name: Timberwolves
+        - name: Trail Blazers
+        - name: Warriors
+        - name: Wizards
          # freshness:
            # error_after: {count: 6, period: hour}
 
@@ -60,119 +86,1133 @@ models:
           - name: position
             description: respective player's position
 
-  - name: stg_bucks_players
+    - name: stg_bucks_players
       description: >
         Bucks team for the 2022 NBA season
-      columns:
-          - name: name
-            description: Name of the player
-            tests:
-                - unique:
-                    severity: warn
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
                 - not_null:
                     severity: warn
-          - name: dob 
-            description: > 
-                Player's date of birth
-          - name: pob
-            description: Player's place of birth
-          - name: debut_age 
-            description: Age player made their debut
-          - name: debut_year 
-            description: Year player made their debut
-          - name: height 
-            description: Height of the player
-            tests:
-              - not_null:
-                  severity: warn
-          - name: weight
-            description: Weight of the player
-            tests:
-              - not_null:
-                  severity: warn
-          - name: college
-            description: the respective players college.
-          - name: affliation 
-            description: respective players affiliation
-          - name: jersey
-            description: respective player's jersey number
-          - name: position
-            description: respective player's position
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
 
-  - name: stg_bulls_players
+    - name: stg_bulls_players
       description: >
         Bulls team for the 2022 NBA season
-      columns:
-          - name: name
-            description: Name of the player
-            tests:
-                - unique:
-                    severity: warn
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
                 - not_null:
                     severity: warn
-          - name: dob 
-            description: > 
-                Player's date of birth
-          - name: pob
-            description: Player's place of birth
-          - name: debut_age 
-            description: Age player made their debut
-          - name: debut_year 
-            description: Year player made their debut
-          - name: height 
-            description: Height of the player
-            tests:
-              - not_null:
-                  severity: warn
-          - name: weight
-            description: Weight of the player
-            tests:
-              - not_null:
-                  severity: warn
-          - name: college
-            description: the respective players college.
-          - name: affliation 
-            description: respective players affiliation
-          - name: jersey
-            description: respective player's jersey number
-          - name: position
-            description: respective player's position
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
 
-  - name: stg_cavaliers_players
+    - name: stg_cavaliers_players
       description: >
         Cavaliers team for the 2022 NBA season
-      columns:
-          - name: name
-            description: Name of the player
-            tests:
-                - unique:
-                    severity: warn
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
                 - not_null:
                     severity: warn
-          - name: dob 
-            description: > 
-                Player's date of birth
-          - name: pob
-            description: Player's place of birth
-          - name: debut_age 
-            description: Age player made their debut
-          - name: debut_year 
-            description: Year player made their debut
-          - name: height 
-            description: Height of the player
-            tests:
-              - not_null:
-                  severity: warn
-          - name: weight
-            description: Weight of the player
-            tests:
-              - not_null:
-                  severity: warn
-          - name: college
-            description: the respective players college.
-          - name: affliation 
-            description: respective players affiliation
-          - name: jersey
-            description: respective player's jersey number
-          - name: position
-            description: respective player's position
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_celtics_players
+      description: >
+        Celtics team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_clippers_players
+      description: >
+        Clippers team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_grizzlies_players
+      description: >
+        Grizzlies team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_hawks_players
+      description: >
+        Hawks team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_heat_players
+      description: >
+        Heat team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_hornets_players
+      description: >
+        Hornets team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_jazz_players
+      description: >
+        Jazz team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_kings_players
+      description: >
+        Kings team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_knicks_players
+      description: >
+        Knicks team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_lakers_players
+      description: >
+        Lakers team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_magic_players
+      description: >
+        Magic team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_mavericks_players
+      description: >
+        Mavericks team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_nets_players
+      description: >
+        Nets team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_nuggets_players
+      description: >
+        Nuggets team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_pacers_players
+      description: >
+        Pacers team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_pelicans_players
+      description: >
+        Pelicans team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_pistons_players
+      description: >
+        Pistons team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_raptors_players
+      description: >
+        Raptors team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_rockets_players
+      description: >
+        Rockets team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_spurs_players
+      description: >
+        Spurs team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_suns_players
+      description: >
+        Suns team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_thunder_players
+      description: >
+        Thunder team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_timberwolves_players
+      description: >
+        Timberwolves team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_blazers_players
+      description: >
+        Trail Blazers team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_warriors_players
+      description: >
+        Warriors team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position
+
+    - name: stg_wizards_players
+      description: >
+        Wizards team for the 2022 NBA season
+        columns:
+            - name: name
+              description: Name of the player
+              tests:
+                  - unique:
+                      severity: warn
+                  - not_null:
+                      severity: warn
+            - name: dob 
+              description: > 
+                  Player's date of birth
+            - name: pob
+              description: Player's place of birth
+            - name: debut_age 
+              description: Age player made their debut
+            - name: debut_year 
+              description: Year player made their debut
+            - name: height 
+              description: Height of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: weight
+              description: Weight of the player
+              tests:
+                - not_null:
+                    severity: warn
+            - name: college
+              description: the respective players college.
+            - name: affliation 
+              description: respective players affiliation
+            - name: jersey
+              description: respective player's jersey number
+            - name: position
+              description: respective player's position

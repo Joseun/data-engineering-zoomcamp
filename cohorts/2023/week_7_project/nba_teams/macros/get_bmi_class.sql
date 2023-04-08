@@ -4,7 +4,7 @@
 
 {% macro get_bmi_class(BMI) -%}
 
-    case {{ BMI }}
+    case
         WHEN {{ BMI }} < 16.5 THEN 'Severely underweight'
         WHEN {{ BMI }} >= 16.5 AND {{ BMI }} < 18.5 THEN 'Underweight'
         WHEN {{ BMI }} >= 18.5 AND {{ BMI }} < 25 THEN 'Normal weight'
