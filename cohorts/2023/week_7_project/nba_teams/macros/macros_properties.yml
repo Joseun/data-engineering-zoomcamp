@@ -1,7 +1,7 @@
 version: 2
 
 macros:
-  - name: get_bmi
+  - name: get_bmi_class
     description: >
       This macro receives a BMI and returns the corresponding class.
     arguments:
