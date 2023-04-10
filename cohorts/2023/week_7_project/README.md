@@ -21,7 +21,7 @@ The data was mined using an end-to-end orchestrated data pipeline, with [Rapid A
 </br>
 
 <p align="center">
-<img src="util/image_nba_teams.png">
+<img src="utils/image_nba_teams.png">
 </p>
 
 ## Questions this Project Seeks to Answer
@@ -75,7 +75,7 @@ The data was mined using an end-to-end orchestrated data pipeline, with [Rapid A
 ## dbt Lineage Graph
 
 The lineage graph for the final Complaints Fact Table looks like this:
-![Lineage](util/dbt_lineage.png)
+![Lineage](utils/dbt_lineage.png)
 
 </br>
 </br>
