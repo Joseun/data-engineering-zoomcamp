@@ -3,7 +3,7 @@
 # NBA SEASON 2022 PLAYERS INFORMATION
 
 This project was built over the course of the [2023 Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp). The goal was to build a data pipeline that can continuously fetch, transform and load data into a data warehouse and visualize key insights. This was achieved with a batch data pipeline, and written in a way that allows for data mining via an [api](<(https://api-sports.io/documentation/nba/v2)>) given the year as a parameter. </br></br>
-I also documented my entire 2023 Data Engineering Zoomcamp journey in a medium post [here](https://medium.com/@/list/2023-data-engineering-zoomcamp-dfa7bb438f44).
+I also documented my entire 2023 Data Engineering Zoomcamp journey in a medium post [here](https://medium.com/@ologanj/my-journey-through-the-2023-data-engineering-zoomcamp-a35c77f54a66).
 </br>
 </br>
 
@@ -124,6 +124,9 @@ You can explore the final dashboard [here](https://lookerstudio.google.com/repor
 
 ## Future Improvements
 
-- would love to add testing and set it up with Continuous Integration
-- would love to add support for different environments (development, staging, production)
-- would like to see if there's a possibility to add other data sources to enhance this analysis
+- Adding comprehensive tests to ensure data quality, pipeline reliability, and overall performance
+- Exploring the possibility of integrating other data sources to enhance the analysis and provide more in-depth insights into the NBA players' statistics
+- Investigating real-time data processing techniques to enable the system to react quickly to new data, providing up-to-date insights and more accurate analysis
+
+## Inspirations:
+Special thanks to [VeraZab](https://github.com/VeraZab/nyc-stats/tree/main/), [mikecolemn](https://github.com/mikecolemn/mpls-311-data/tree/main/), and [VincenzoGalante](https://github.com/VincenzoGalante/magic-the-gathering/tree/main/), for their projects, as it served as a useful guides in working on this project.

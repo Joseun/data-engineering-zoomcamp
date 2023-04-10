@@ -113,10 +113,7 @@ Creation steps for a [remote github repository here](https://docs.github.com/en/
       prefect agent start --work-queue "default"
       ```
 
-1. From your original terminal session, run this command to setup some blocks for your GCP credentials in prefect:
-   ``` 
-   python ./setup/prefect_setup_blocks.py
-   ```
+1. You can set up [prefect blocks](https://docs.prefect.io/latest/concepts/blocks/) from Prefect UI
 
 1. From your original terminal session, run the following three commands to deploy the pipeline to Prefect and then run it for all years of data
    ```
@@ -136,6 +133,10 @@ Creation steps for a [remote github repository here](https://docs.github.com/en/
    git branch -M main
    git push -u origin main
    ```
-1. > **Important note: Once you're done evaluating this project, make sure to stop and remove any cloud resources.  If you're using a cloud VM, make sure to stop it in your VM Instances screen in Google Cloud Console, and potentially delete it if you no longer want it.  This way it's not up and running, and using up your credits.  In addition, you can use Terraform to destroy your buckets and datasets, with `terraform -chdir="./terraform" destroy -var="project=<project id here>"`**
+1. > **Important note: Once you're done evaluating this project, make sure to stop and remove any cloud resources.  If you're using a cloud VM, make sure to stop it in your VM Instances screen in Google Cloud Console, and potentially delete it if you no longer want it.  This way it's not up and running, and using up your credits.  In addition, you can use Terraform to destroy your buckets and datasets, with**
+   ```
+   terraform -chdir="./terraform" destroy -var="project=<project id here>"
+   ```
+
 </br>
 </br>
