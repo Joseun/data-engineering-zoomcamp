@@ -1,4 +1,4 @@
-![](utils/2022-championship-logo.png)
+![](utils/ballers.png)
 
 # NBA SEASON 2022 PLAYERS INFORMATION
 

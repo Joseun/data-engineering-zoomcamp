@@ -1,44 +1,29 @@
 #!/usr/bin/env python
-# coding: utf-8
+""" MODULE TO EXTRACT DATA FROM API AND LOAD TO GCS """
 
-import time
-import pandas as pd
-import numpy as np 
 import json
+import numpy as np 
+import pandas as pd
+import requests
+import time
+
 from datetime import timedelta
+from decouple import config
 from pathlib import Path
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 from prefect_gcp.cloud_storage import GcsBucket
-from decouple import config
-import requests
 
-# players_table = "cloud-data-infrastructure.football_data_dataset.players"
 
-# def gcp_secret():
-#     # Import the Secret Manager client library.
-#     from google.cloud import secretmanager
-
-#     # Create the Secret Manager client.
-#     client = secretmanager.SecretManagerServiceClient()
-
-#     # Build the resource name of the secret version.
-#     name = "projects/463690670206/secrets/rapid-api/versions/1"
-
-#     # Access the secret version.
-#     response = client.access_secret_version(request={"name": name})
-
-#     payload = response.payload.data.decode("UTF-8")
-#     return payload
 
 @task(log_prints=True, retries=3)
 def fetch(year: int, team: int) -> json:
-	# Headers used for RapidAPI.-
+	""" Fetchs json object via API call """
 	headers = {
 		"X-RapidAPI-Key": config("KEY"),
 		"X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
 	}
-	# Standings endpoint from RapidAPI.
+	# Players endpoint from RapidAPI.
 	url = "https://api-nba-v1.p.rapidapi.com/players"
 
 	# Building query to retrieve data.
@@ -55,7 +40,8 @@ def fetch(year: int, team: int) -> json:
 	return json_res
 
 @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
-def get_players(json_res:str):
+def get_players(json_res:str) -> pd.DataFrame:
+	""" Create a dataset from json response """
 	# Empty lists that will be filled and then used to create a dataframe.
 	full_name = []
 	birth_date = []
@@ -81,19 +67,15 @@ def get_players(json_res:str):
 		
 		full_name.append(name)
 
-		# Retrieving amount of goals per player.
 		birth_date.append(str(json.dumps(json_res["response"][count]["birth"]["date"])))
 		birth_country.append(str(json.dumps(json_res["response"][count]["birth"]["country"])))
-		# Retrieving player's team name.
 		pro_age.append(str(json.dumps(json_res["response"][count]["nba"]["pro"])))
 		start_pro.append(str(json.dumps(json_res["response"][count]["nba"]["start"])))
 		height.append(((str(json.dumps(json_res["response"][count]["height"]["meters"])))))
 		weight.append(((str(json.dumps(json_res["response"][count]["weight"]["kilograms"])))))
-		# Retrieving player's nationality.
 		college_list.append((str(json.dumps(json_res["response"][count]["college"]))))
 		affiliation_list.append((str(json.dumps(json_res["response"][count]["affiliation"]))))
 
-		# Retrieving player's photo link.
 		try:
 			jersey_number.append(str(json.dumps(json_res["response"][count]["leagues"]["standard"]["jersey"])))
 		except:
@@ -115,7 +97,7 @@ def get_players(json_res:str):
 
 @task(log_prints=True)
 def clean(df: pd.DataFrame) -> pd.DataFrame:
-	""" Fix dtype issues """
+	""" Cleans dataframe  """
 	df.replace('null', np.nan, inplace=True)
 	print(df.head(2))
 	print(df.isnull().sum())
@@ -151,16 +133,15 @@ def write_gcs(path: Path) -> None:
 
 @flow(log_prints=True)
 def etl_players_flow(year: int = 2022):
-	# print(years)
-	# if years == ["*"]:
+	""" Main ETL flow """
 	try:
 		data = pd.read_parquet(r"/home/joseun/data-engineering-zoomcamp/cohorts/2023/week_7_project/data/nba/teams_lookup.parquet")
 		club_id = data['club_id'].to_list()
 		club_name = [i.strip("\"") for i in data['name'].to_list()]
 		club_nick = [i.strip("\"") for i in data['nickname'].to_list()]
-		# # team_df = []
 		count = 1
 		total_rows = 0
+		
 		for id, name, nickname in zip(club_id, club_name, club_nick): # There are 63 unique IDs tied to teams from the NBA api 
 			json_res = fetch(year, id)
 			if json_res['response']:
@@ -177,8 +158,6 @@ def etl_players_flow(year: int = 2022):
 				time.sleep(30)
 				print("Now continuing")
 				count += 1
-				# team_df.append(cleaned_df)
-				# print(f" Success: Team {i} for {year} NBA season loaded")
 			else:
 				print(json_res)
 				continue

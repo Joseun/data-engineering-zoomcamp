@@ -1,44 +1,27 @@
 #!/usr/bin/env python
-# coding: utf-8
+""" MODULE TO EXTRACT TEAMS FROM API """
 
-import time
-import pandas as pd
-import numpy as np 
 import json
+import numpy as np 
+import pandas as pd
+import requests
+
 from datetime import timedelta
+from decouple import config
 from pathlib import Path
 from prefect import flow, task
 from prefect.tasks import task_input_hash
 from prefect_gcp.cloud_storage import GcsBucket
-from decouple import config
-import requests
 
-# players_table = "cloud-data-infrastructure.football_data_dataset.players"
-
-# def gcp_secret():
-#     # Import the Secret Manager client library.
-#     from google.cloud import secretmanager
-
-#     # Create the Secret Manager client.
-#     client = secretmanager.SecretManagerServiceClient()
-
-#     # Build the resource name of the secret version.
-#     name = "projects/463690670206/secrets/rapid-api/versions/1"
-
-#     # Access the secret version.
-#     response = client.access_secret_version(request={"name": name})
-
-#     payload = response.payload.data.decode("UTF-8")
-#     return payload
 
 @task(log_prints=True, retries=3)
 def fetch() -> json:
-	# Headers used for RapidAPI.-
+	""" Fetchs json object via API call """
 	headers = {
 		"X-RapidAPI-Key": config("KEY"),
 		"X-RapidAPI-Host": "api-nba-v1.p.rapidapi.com"
 	}
-	# Standings endpoint from RapidAPI.
+	# Teams endpoint from RapidAPI.
 	url = "https://api-nba-v1.p.rapidapi.com/teams"
 	# Building query to retrieve data.
 	try:
@@ -50,7 +33,8 @@ def fetch() -> json:
 	return json_res
 
 @task(log_prints=True, retries=3, cache_key_fn=task_input_hash, cache_expiration=timedelta(days=1))
-def get_teams(json_res:str):
+def get_teams(json_res:str) -> pd.DataFrame:
+	""" Create a dataset from json response """
 	# Empty lists that will be filled and then used to create a dataframe.
 	id_list = []
 	name = []
@@ -68,7 +52,6 @@ def get_teams(json_res:str):
 		id_list.append(int(json.dumps(json_res["response"][count]["id"], ensure_ascii=False)))
 		name.append(str(json.dumps(json_res["response"][count]["name"], ensure_ascii=False)))
 
-		# Retrieving amount of goals per player.
 		nickname.append(str(json.dumps(json_res["response"][count]["nickname"])))
 		code.append(str(json.dumps(json_res["response"][count]["code"])))
 		city.append(str(json.dumps(json_res["response"][count]["city"])))
@@ -87,7 +70,7 @@ def get_teams(json_res:str):
 
 @task(log_prints=True)
 def clean(df: pd.DataFrame) -> pd.DataFrame:
-	""" Fix dtype issues """
+	""" Cleans and filters dataframe """
 	df.replace('null', np.nan, inplace=True)
 	print(df.head(2))
 	print(df.isnull().sum())
@@ -121,8 +104,7 @@ def write_gcs(path: Path) -> None:
 
 @flow(log_prints=True)
 def etl_teams_flow():
-	# print(years)
-	# if years == ["*"]:
+	"""Main ETL flow """
 	try:
 		json_res = fetch()
 		df = get_teams(json_res)
