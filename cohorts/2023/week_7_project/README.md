@@ -1,37 +1,44 @@
-# NBA Statistics: 2015 to 2021
+![](utils/2022-championship-logo.png)
 
-This project was built over the course of the [2023 Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp). It's goal was to build a data pipeline that continuously fetched, transformed and loaded data into a data warehouse and visualized key insights from it. This is a batch data pipeline, it was written in a way that allows for ad hoc data loading as well as daily job runs that fetch the latest data from the [api](<(https://api-sports.io/documentation/nba/v2)>). </br></br>
-I also documented my entire 2023 Data Engineering Zoomcamp journey in my medium posts [here](https://medium.com/@/list/2023-data-engineering-zoomcamp-dfa7bb438f44).
+# NBA SEASON 2022 PLAYERS INFORMATION
+
+This project was built over the course of the [2023 Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp). The goal was to build a data pipeline that can continuously fetch, transform and load data into a data warehouse and visualize key insights. This was achieved with a batch data pipeline, and written in a way that allows for data mining via an [api](<(https://api-sports.io/documentation/nba/v2)>) given the year as a parameter. </br></br>
+I also documented my entire 2023 Data Engineering Zoomcamp journey in a medium post [here](https://medium.com/@/list/2023-data-engineering-zoomcamp-dfa7bb438f44).
 </br>
 </br>
 
-## What is NYC 311
+## NBA Season 2022
+The NBA season 2022 began on October 19, 2021 and ended on April 10, 2022. The NBA All-Star Game was played at Rocket Mortgage FieldHouse in Cleveland on February 20, 2022. The Golden State Warriors defeated the Boston Celtics in the 2022 NBA Finals which ended on June 16.
 
-NYC 311 is a 24/7 hotline that provides non-emergency services and information for residents, businesses, and visitors. It enables individuals to file complaints on various issues, ranging from poor road conditions, to various noise complaints, graffiti, poor air quality and many others. 311 reroutes service requests to one of the 23 city agencies that is most appropriate to handle them. This service is accessible through multiple channels, including phone, online web portal, mobile app, and social media, offering a centralized point of contact for all non-urgent matters in the city.
+
 </br>
 </br>
 
 ## About the Dataset
 
-[The data](https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9) has been taken from the [NYC Open Data portal](https://opendata.cityofnewyork.us/), a publicly accessible platform that provides [an api](https://dev.socrata.com/foundry/data.cityofnewyork.us/erm2-nwe9) and free access to over 2,100 datasets related to the city of NYC. The 311 dataset is updated automatically, daily.
+The data was mined using an end-to-end orchestrated data pipeline, with [Rapid API](https://rapidapi.com/api-sports/api/api-nba/) as the source to extract teams and player details for NBA season 2022, and save the data to my data [lake](https://console.cloud.google.com/storage/) and warehouse [BigQuery](https://console.cloud.google.com/bigquery/) without much transformations. Then, dbt was used to clean and tranform the data extraxted as needed into staging and fact tables which was used for visualization in the dashboard.
 </br>
 </br>
+
+<p align="center">
+<img src="util/image_nba_teams.png">
+</p>
 
 ## Questions this Project Seeks to Answer
 
-- What are the top complaint types received by NYC 311?
-- What are the top complaint types handled by a specific agency?
-- How have individual complaint types evolved over 13 years (increased/decreased)?
-- Which zip codes file the most complaints?
-- Which zip codes report a particular type of complaint most often?
-- Which agencies handle the most 311 complaints and how has this changed year over year?
-- Has the responsiveness of the various city agencies increased or decreased year over year?
+- What is the average height of players?
+- What is the average weight of players?
+- What is the average body mass index of players?
+- What is the body mass index class distribution of players?
+- Which countries had the lowest representation of players?
+- Which field positions have the highest and lowest distributions of players?
+- Which day and month did most players celebrate their birthdays?
   </br>
   </br>
 
 ## Technologies Used
 
-![Project Architecture Diagram](/utils/de-zoomcamp-project.png)
+![Project Architecture Diagram](utils/de-zoomcamp-project.png)
 
 - [Pandas Python Library](https://pandas.pydata.org/): To fetch data from the [RAPID API](https://api-sports.io/documentation/nba/v2), transform it into a dataframe with appropriate data types, and load it to BigQuery
 - [Terraform](https://www.terraform.io/): To easily manage infrastructure setup and changes
@@ -42,43 +49,46 @@ NYC 311 is a 24/7 hotline that provides non-emergency services and information f
 - [Github](https://github.com/): To host our source code as well as for CI/CD with Github Actions
 - [Prefect OSS and Prefect Cloud](https://www.prefect.io/): To orchestrate, monitor and schedule our deployments
 - [dbt](https://www.getdbt.com/): To transform the data in our data warehouse and get it ready for visualization
-- [PipeRider](https://docs.piperider.io/): To monitor and perform version control of data 
   </br>
   </br>
 
-## Structure of the Final Complaints Fact Table
+## Structure of the Final Players Fact Table
 
 | Column         | Data Type | Description                                  |
 | -------------- | --------- | -------------------------------------------- |
-| unique_key     | INTEGER   | Unique key identifying a specific complaint  |
-| created_date   | TIMESTAMP | Date the complaint was filled                |
-| closed_date    | TIMESTAMP | Date the complaint was closed                |
-| agency_name    | STRING    | Full name of agency that handled the request |
-| complaint_type | STRING    | A category of complaint                      |
-| descriptor     | STRING    | Longer description explaining complaint      |
-| incident_zip   | INTEGER   | Zip Code where incident occured              |
+| name | STRING | Unique key identifying a specific player |
+| place_of_birth | STRING | Place of birth of each player |
+| day_of_birth | STRING | Day of the week in which each player was born |
+| month_of_birth | STRING | Month of the year in which each player was born |
+| debut_age | INTEGER | Age at which each player had their debut |
+| height | FLOAT | Height of each player |
+| weight | FLOAT   | Weight of each player |
+| BMI | FLOAT | Body mass index of each player |
+| bmi_class | STRING | Body mass index class of each player |
+| college | STRING | College each player is a affiliated to |
+| jersey_number | INTEGER | Number on the jersey worn by each player |
+| position | STRING | Field position played by each player |
 
 </br>
 </br>
 
-## DBT Lineage Graph
+## dbt Lineage Graph
 
 The lineage graph for the final Complaints Fact Table looks like this:
-![Lineage](/utilities/images/lineage-graph.png)
+![Lineage](util/dbt_lineage.png)
 
 </br>
 </br>
 
-`agencies` is a table that was created from a seed csv which contained abbreviations and full names of all the agencies that deal with 311 Service Requests.
+`teams_lookup` is a parquet file created which contains details about each team like their names, nickname, code, nba franschise, and so on.
 </br>
 </br>
-The `staging.my_table` table is poorly named and I was aprehensive of changing this name as I had already loaded up a few gigabytes of data into it after realizing the poor naming. The name should have been `complaints` as this is effectively what this table represents. `stg_my_table` cleaned up and standardized the data from the `staging.my_table` table and applied a filter to it that removed around 2M records that were made for complaints outside of NYC Zip Codes.
+The `nbaplayers`.`table` dataset was created in [BigQuery](https://cloud.google.com/bigquery) to hold the tables of all the players for each team using their nicknames for table names. `stg_table_players` contains cleaned up and standardized data from the `nbaplayers`.`table` table with a filter applied to remove null jersey numbers and incorrect debut years
+</br>
+`stg_table_players` were joined together into final `fact_players` table that feeds the dashboard.
 </br>
 </br>
-`stg_my_table` and `dim_agency_names` have been joined so as to provide the full agency name in the final `fct_complaints` table that feeds our dashboard.
-</br>
-</br>
-The `fct_complaints` table which feeds our dashboard, has been partitioned by month (as partitioning daily would have exceeded the max 4000 partition limit of BigQuery). It has also been clustered by `complaint_type` and `agency_name` columns.
+The `fact_players` table which feeds the dashboard, contains all players details as well as their calculated body mass index and class using a macro within dbt
 
 </br>
 </br>
@@ -87,31 +97,27 @@ The `fct_complaints` table which feeds our dashboard, has been partitioned by mo
 
 You can explore the final dashboard [here](https://lookerstudio.google.com/reporting/65ee32b0-4626-4a39-8065-5d8c27380a1a).
 
-![Dashboard Page 1](/utilities/images/dashboard1.png)
-![Dashboard Page 2](/utilities/images/dashboard2.png)
-![Dashboard Page 3](/utilities/images/dashboard3.png)
+![Dashboard Page 1](utils/dashboard1.png)
+![Dashboard Page 2](utils/dashboard2.png)
+
 </br>
 </br>
 
 ## Key Findings
 
-- About a third of the 311 Service Requests filled are routed to the The New York City Police Department. It's the agency that deals with the most requests.
-- The top 5 service requests to the NYPD are: Residential Noise, Illegal Parking, Blocked Driveway, Noise on Street/Sidewalk, Commercial Noise.
-- Residential Noise complaints from 2019 to 2020 have spiked drastically (230k complaints in 2019 to 403k in 2020), and haven't really decreased in 2021, 2022.
-- The part of town reporting the most noise complaints is in the Bronx, specifically in zip code 10466. [It's even been written about](https://www.nycitynewsservice.com/2020/12/03/noise-complaints-nyc-bronx-pandemic-house-parties/).
-- The NYPD receives more complaints than any other agency, but it hasn't always been the case. Before 2015, the Department of Housing Preservation and Development used to be the agency dealing with the most complaints.
-- Top complaints with the Department of Housing Preservation and Development include: Heat/Hot Water related complaints, Heating, Plumbing, Unsanitary Conditions, General Construction.
-- Even if the NYPD receives such important amounts of requests (1.3M in 2022), it is pretty fast at responding to them. The average response time is less than a day.
+- At least 418 players participated in the 2022 NBA season.
+- The average height of the athletes was 199cm, and average weight was 98.17kg
+- Most athletes were within the normal weight class for their respective body mass index, with an average of 24.71kg/m2.
+- Many of the players who participated debuted at 21 years of age.
+- There were more guards in the NBA than centres.
+- There were about 3 Croatian athletes who played in the 2022 season.
+- There were more players who had their birthdays on a Friday and most of them were born in September.
   </br>
   </br>
 
 ## To Replicate
 
-1. Go through the prerequisite steps [here](./prerequisites.md). The last step in those prerequisites will make you push your code to your own remote repository, which will create a Docker Image for your Prefect Flows, push it to GCP Artifact Registry, and register a Prefect CloudRunJob block to use this new image for your flow runs.
-1. Trigger a Prefect Deployment build by activating the `Build and Apply Prefect Deployment` github action on the Github UI.
-1. Once your Prefect Deployment is applied, go to Prefect Cloud, check that your Agent is running (ie: the work queue is healthy).
-1. You can also retrigger a Prefect Agent deployment with the "Rebuild Agent VM" from the GitHub Actions UI. (The first VM deployment has been made with terraform when creating all our resources.)
-1. Trigger a deployment by doing a quick run or custom run on the Prefect Cloud UI.
+1. Go through the prerequisite steps [here](./replicate.md)
 
 </br>
 </br>
