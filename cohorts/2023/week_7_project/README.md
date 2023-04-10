@@ -74,7 +74,7 @@ The data was mined using an end-to-end orchestrated data pipeline, with [Rapid A
 
 ## dbt Lineage Graph
 
-The lineage graph for the final Complaints Fact Table looks like this:
+The lineage graph for the final players Fact Table looks like this:
 ![Lineage](utils/dbt_lineage.png)
 
 </br>
