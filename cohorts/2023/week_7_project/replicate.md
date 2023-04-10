@@ -62,12 +62,17 @@ Creation steps for a [remote github repository here](https://docs.github.com/en/
 </br>
 
 ## Setup Steps:
+1. A docker image of the flow is also available. You can access it by running 
+   ```
+   docker pull joseun/prefect:nbaplayers
+   docker run --name nbaplayers joseun/prefect:nbaplayers
+   ```
+1. Alternatively, clone this repository using this [link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/Joseun/data-engineering-zoomcamp/tree/main/cohorts/2023/week_7_project). 
 
-1. Clone this repository using this [link](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/Joseun/data-engineering-zoomcamp/tree/main/cohorts/2023/week_7_project)
 1. Remove git history with `rm -rf .git`
 1. Rename the `env` file to `.env`, and replace the Rapid API Key after subscription
 1. Reinitialize git with `git init`</br>
-1. Create a [Google Cloud Platform project](https://console.cloud.google.com/cloud-resource-manager)
+1. After either methods, you should create a [Google Cloud Platform project](https://console.cloud.google.com/cloud-resource-manager)
 1. Configure Identity and Access Management (IAM) for the service account, giving it the following privileges: BigQuery Admin, Storage Admin and Storage Object Admin
 1. Download the JSON credentials and save it, e.g. to `~/.gc/<credentials>`
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install-sdk)
@@ -114,6 +119,11 @@ Creation steps for a [remote github repository here](https://docs.github.com/en/
       ```
 
 1. You can set up [prefect blocks](https://docs.prefect.io/latest/concepts/blocks/) from Prefect UI
+
+1. From any of the terminate sessions run the following command to create the `teams_lookup` file.
+   ```
+   python teams.py
+   ```
 
 1. From your original terminal session, run the following three commands to deploy the pipeline to Prefect and then run it for all years of data
    ```
